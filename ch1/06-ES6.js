@@ -80,3 +80,107 @@ var x = 'a'
 var y = 'b'
 var obj = { x: x, y: y }
 console.log(obj)
+
+//method property is writing this:
+var hello = {
+	name: 'abcdef',
+	printHello() {
+		console.log('Hello')
+	}
+}
+hello.printHello()
+
+//instead of this:
+var hello = {
+	name: 'abcdef',
+	printHello: function printHello() {
+		console.log('Hello')
+	}
+}
+hello.printHello()
+
+/* In ES5, we created a class like this: 
+*/
+function Book(title, pages, isbn) { //{1}
+	this.title = title
+	this.pages = pages
+	this.isbn = isbn
+}
+Book.prototype.printTitle = function(){
+	console.log(this.title);
+};
+
+/* With ES6, we can simplify the syntax and use the following code: 
+class Book { //{2}
+	constructor(title, pages, isbn) {
+		this.title = title
+		this.pages = pages
+		this.isbn = isbn
+	}
+	printIsbn() {
+		console.log(this.isbn)
+	}
+}
+*/
+/* The code for the class Book declared from line {1} has the same effect and output as the code declared from line {2} as can be demonstrated below: */
+let book = new Book('title', 'pag', 'isbn')
+console.log(book.title)
+book.title = 'new title'
+console.log(book.title)
+
+//Inheritance
+
+class ITBook extends Book { //use the keyword extends
+	constructor(title, pages, isbn, technology) {
+		super(title, pages, isbn) //use the keyword super
+		this.technology = technology
+	}
+	printTechnology() {
+		console.log(this.technology)
+	}
+}
+
+let jsBook = new ITBook('Jacascript Book', '200', '12344567890', 'Jacascript')
+console.log(jsBook.title)
+jsBook.printTechnology()
+
+/* Working with getters and setters
+With the new class syntax, it's also possible to create getter and setter functions for the class attributes. Although class attributes are not private
+as in other object-oriented languages (the encapsulation concept), it is good to follow a naming pattern.
+*/
+
+class Person {
+	constructor(name) {
+		this._name = name
+	}
+
+	get name() {
+		return this._name
+	}
+	
+	set name(value) {
+		this._name = value
+	}
+}
+
+let lotrChar = new Person('Frodough')
+console.log(lotrChar.name)
+lotrChar.name = 'Sham'
+console.log(lotrChar.name)
+lotrChar._name = 'Blue Hedgehog'
+console.log(lotrChar.name)
+
+/* ES6 also has other functionalities, namely:
+- iterators
+- typed arrays
+- Set
+- Map
+- WeakSet
+- WeakMap
+- modules
+- tail calls
+- Symbol
+
+Some of those will be covered later in the book
+
+You do not need to update your ES5 code to ES6 or ES7. It would only get easier to read. The old code will continue working as usual.*/
