@@ -4,7 +4,7 @@ The available types are numbers, strings, and booleans. Then undefined and null.
 */
 
 var num = 1
-num = 'Your mom' //you can do this. Not good practice, though.
+num = 'Your mom' //you can do this (attribute a different type to the same variable). Not good practice, though.
 var price = 1.5
 var name = 'Packt'
 var truth = true
@@ -41,7 +41,7 @@ http://conceptf1.blogspot.com.br/2014/01/javascript-triple-equals-vs-double-equa
 console.log("NaN === NaN", NaN === NaN)
 var person1 = {name:"John"}
 var person2 = {name:"John"}
-console.log("person1 == person2", person1 == person2) //why false?
+console.log("person1 == person2", person1 == person2) //why false? Because internally the interpreter does === when it sees two objects.
 console.log("person1 === person2", person1 === person2) //false, different objects
 
 //the typeof operator does NOT look like a function:

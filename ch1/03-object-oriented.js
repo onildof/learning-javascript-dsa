@@ -61,6 +61,4 @@ book.printIsbn();//WTF redeclarei a classe e usei um objeto da anterior e funcio
 /*
 In the prototype example, the printTitle function will be shared among all the instances but only one copy in memory will be created.
 When we use a class-based definition, each instance will have its own copy of the functions in memory.
-However, you can only declare public functions and properties using the prototype method.
-With a class-based definition, you can declare private functions and properties and the other methods inside the class can also access them.
 */
