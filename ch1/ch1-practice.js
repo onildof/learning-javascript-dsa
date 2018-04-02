@@ -1,3 +1,10 @@
+/* Resumo 
+Javascript é fortemente tipada? 
+Que tipos de dados javascript tem?
+Temos 3 formas de output valores em Javascript. Quais?
+O que dizer sobre as variáveis globais de Javascript?
+
+*/
 /*
 
 TIPOS E OPERADORES
@@ -21,7 +28,7 @@ alert('texto')
 console.log('texto') //tem que apertar F12 e observar o console
 document.write('texto') //cria o texto na própria página html
 
-/* O que dizem sobre as variáveis globais de Javascript? */
+/* O que dizer sobre as variáveis globais de Javascript? */
 //Devem ser evitadas ao máximo.
 
 /* Quais operadores são especiais de javascript? */
@@ -160,3 +167,130 @@ buch.printTitle()
 
 /* Existe diferença prática entre uma função protótipo e uma função declarada dentro da classe? */
 // A função protótipo só tem uma cópia na memória e é compartilhada por todas as instâncias.
+
+/* Ao escrever de acordo com a especificação ECMAScript6: */
+
+/* O que se usa no lugar de var e qual a diferença? */
+
+let bygones = "bygones"; //com let não se pode declarar a variável duas vezes
+
+/* Existia resenha de escopo local e global em javascript antes do ECMAScript6? */
+//Não.
+
+/* Como se criava constante antes do ES6? */
+//Não se criava. Agora se cria com a palavra chave const:
+const PI = 3.141592
+
+/* O que são template literals? */
+//É o uso de strings com grave ao invés de aspas. Dá pra construir a string com variáveis sem ter de concatenar, e dar quebra de linha sem \n:
+console.log(`pi = ${PI}`)
+console.log(`quebra
+de
+linha`)
+
+/* Arrow functions é uma simplificação ES6 da declaração de funções */
+let areaOfCircle = function areaOfCircle(r) {
+	const PI = 3.14
+	return PI*r*r
+}
+
+let areaOfCircleArrowFunction = (r) => {
+	const PI = 3.14
+	return PI*r*r
+}
+
+/* Se você for autista, pode escrever a arrow function de um statement só de um jeito mais complicado de entender ainda: */
+let areaOfCircleOneStatementFunction = (r) => 3.14*r*r
+
+/* Valores padrão para parâmetros é outra complicação de javascript que só apareceu com o ES6 */
+function sum(x=1,y=2,z=3)
+{
+	return x + y + z
+}
+
+/* Array destructuring o que é? */
+let [a, b] = [1, 2] //inicializar várias variáveis de uma vez
+[a, b] = [b, a] //fazer swap sem variável temp
+
+/* Property shorthand o que é */
+let obj = {a: a, b: b} //ao invés de escrever de um jeito que todo mundo entenda,
+let obj2 = {a, b} //seja autista
+
+/* Method property é substituir o que é normal: */
+let bunda = {
+	cu: 'cu',
+	peido: function peido() {
+		console.log('peidei')
+	}
+}
+bunda.peido()
+
+/* por algo mais autístico */
+
+let rabo = {
+	furico: 'furico',
+	bufa() {
+		console.log('bufei')
+	}
+}
+rabo.bufa()
+
+/* AGORA LÁ VÊM AS CLASSES */
+
+//Compare o jeito ES5 com o ES6 de declarar uma classe nome com nome e sobrenome (duh)
+function name(first, last)
+{
+	this.first = first
+	this.last = last
+}
+name.prototype.fullName = function fullName() {
+	return `${this.first} ${this.last}`
+}
+
+class name {
+	constructor(first, last) {
+		this.first = first
+		this.last = last
+	}
+
+	fullName() {
+		return `${this.first} ${this.last}`
+	}
+}
+
+/* AGORA LÁ VEM A HERANÇA */
+
+class bigname extends name {
+	constructor(first, middle, last) {
+		super(first, last)
+		this.middle = middle
+	}
+}
+	fullName() {
+		return `${this.first} ${this.middle} ${this.last}`
+	}
+}
+
+/* COMPLICANDO MAIS UM POUQUINHO COM GETTERS E SETTERS */
+
+//Getters e setters só servem para florear mesmo porque classes em ECMA6 não têm atributos privados
+
+class name {
+	constructor(first, last) {
+		this._first = first //o underline é apenas para testing purposes
+		this._last = last
+	}
+	get first() {
+		return this._first
+	}
+
+	set first(value) {
+		this._first = value
+	}
+}
+
+let onildo = new name("onildo", "ferraz")
+onildo.first
+onildo._first
+onildo.first = "luciano"
+onildo._first = "rodolfo"
