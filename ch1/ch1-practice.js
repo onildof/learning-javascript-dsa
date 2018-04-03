@@ -2,7 +2,6 @@
 Javascript é fortemente tipada? 
 Que tipos de dados javascript tem?
 Temos 3 formas de output valores em Javascript. Quais?
-O que dizer sobre as variáveis globais de Javascript?
 
 */
 /*
@@ -29,7 +28,6 @@ console.log('texto') //tem que apertar F12 e observar o console
 document.write('texto') //cria o texto na própria página html
 
 /* O que dizer sobre as variáveis globais de Javascript? */
-//Devem ser evitadas ao máximo.
 
 /* Quais operadores são especiais de javascript? */
 console.log(integ === doubl) //o triplo igual
@@ -69,26 +67,23 @@ var johnny = {name: 'John', age: 25}
 john != johnny
 john !== johnny
 
-/* Crie uma função que faça uma conversão implícita do parâmetro para booleano e exiba o resultado */
-function isTrue(param)
-{
-	console.log(typeof param);
-	console.log(param ? 'is true' : 'is false')
-	console.log(' ')
+/* Escreva uma função que exiba o resultado da conversão implícita do parâmetro para booleano. Depois teste essa função com as entradas mais filhas das puta. */
+function truthness(param) {
+        console.log(typeof param)
+        console.log(param ? true : false)
 }
 
-isTrue(true)
-isTrue(false)
-isTrue(new Boolean(true))
-isTrue(new Boolean(false))
-isTrue('')
-isTrue('Packt')
-isTrue(new String('Packt'))
-isTrue(1)
-isTrue(0)
-isTrue(NaN)
-isTrue(new Number(NaN))
-isTrue({})
+var undef
+truthness(NaN)
+truthness(null)
+truthness(undef)
+truthness(0)
+truthness('')
+var object = new Boolean(false)
+truthness(object)
+truthness({})
+truthness('string não vazia')
+truthness(1)
 
 /* Quantos parâmetros você pode passar para uma função? */
 //Quantos quiser, mas a função só vai usar o número declarado
@@ -168,7 +163,11 @@ buch.printTitle()
 /* Existe diferença prática entre uma função protótipo e uma função declarada dentro da classe? */
 // A função protótipo só tem uma cópia na memória e é compartilhada por todas as instâncias.
 
-/* Ao escrever de acordo com a especificação ECMAScript6: */
+/*
+
+Especificação ECMAScript6
+
+*/
 
 /* O que se usa no lugar de var e qual a diferença? */
 
@@ -177,67 +176,77 @@ let bygones = "bygones"; //com let não se pode declarar a variável duas vezes
 /* Existia resenha de escopo local e global em javascript antes do ECMAScript6? */
 //Não.
 
+/* O que dizer sobre as variáveis globais de Javascript? */
+//Evite-as como uma praga.
+
 /* Como se criava constante antes do ES6? */
 //Não se criava. Agora se cria com a palavra chave const:
 const PI = 3.141592
 
-/* O que são template literals? */
-//É o uso de strings com grave ao invés de aspas. Dá pra construir a string com variáveis sem ter de concatenar, e dar quebra de linha sem \n:
+/* Que tipo de string o ECMAScript6 trouxe? */
+//O ES6 trouxe a string com grave, onde você pode implantar variáveis sem ter de fazer concatenação, e dar quebra de linha sem \n:
 console.log(`pi = ${PI}`)
 console.log(`quebra
 de
 linha`)
 
-/* Arrow functions é uma simplificação ES6 da declaração de funções */
-let areaOfCircle = function areaOfCircle(r) {
+/* O ES6 trouxe uma forma mais resumida de declarar funções: o arrow functions: */
+
+//jeito ES5:
+var circleArea = function circleArea(r) {
+	var PI = 3.14
+	return PI*r*r
+}
+
+//jeito ES6 empregando arrow function:
+let circleArea = (r) => {
 	const PI = 3.14
 	return PI*r*r
 }
 
-let areaOfCircleArrowFunction = (r) => {
-	const PI = 3.14
-	return PI*r*r
-}
+/* E se você for autista, pode escrever a arrow function de um statement só de um jeito mais complicado de entender ainda: removendo o return e as chaves. */
+let circleArea = (r) => 3.14*r*r
 
-/* Se você for autista, pode escrever a arrow function de um statement só de um jeito mais complicado de entender ainda: */
-let areaOfCircleOneStatementFunction = (r) => 3.14*r*r
-
-/* Valores padrão para parâmetros é outra complicação de javascript que só apareceu com o ES6 */
+/* O ES6 trouxe outra sofisticação para a declaração de funções que é a definição de valores padrão para os parâmetros */
 function sum(x=1,y=2,z=3)
 {
 	return x + y + z
 }
 
-/* Array destructuring o que é? */
-let [a, b] = [1, 2] //inicializar várias variáveis de uma vez
-[a, b] = [b, a] //fazer swap sem variável temp
+/* O ES6 também trouxe o array destructuring, que é inicializar várias variáveis de uma vez, ou fazer swap sem variável temp */
+let [a, b] = [1, 2]
+[a, b] = [b, a]
 
 /* Property shorthand o que é */
+let a = 5
+let b = 6
 let obj = {a: a, b: b} //ao invés de escrever de um jeito que todo mundo entenda,
 let obj2 = {a, b} //seja autista
 
-/* Method property é substituir o que é normal: */
-let bunda = {
-	cu: 'cu',
-	peido: function peido() {
-		console.log('peidei')
+/* Method property é abreviar a declaração de um par (nome,valor) para uma função que é propriedade de um objeto. De: */
+let spell3 = {
+	name: 'flamestrike',
+	cast: function cast() {
+		console.log('Kal Vas Flam')
 	}
 }
-bunda.peido()
+spell3.cast()
 
-/* por algo mais autístico */
-
-let rabo = {
-	furico: 'furico',
-	bufa() {
-		console.log('bufei')
+/* para: */
+let spell3 = {
+	name: 'flamestrike',
+	cast() {
+		console.log('Kal Vas Flam')
 	}
 }
-rabo.bufa()
+spell3.cast()
 
 /* AGORA LÁ VÊM AS CLASSES */
 
 //Compare o jeito ES5 com o ES6 de declarar uma classe nome com nome e sobrenome (duh)
+
+//No ES5, a declaração de classe era basicamente uma declaração de função com um monte de this dentro. E opcionalmente uma função protótipo por fora.
+
 function name(first, last)
 {
 	this.first = first
@@ -246,6 +255,8 @@ function name(first, last)
 name.prototype.fullName = function fullName() {
 	return `${this.first} ${this.last}`
 }
+
+//No ES6 queriam fazer herança, então pra facilitar a sintaxe botaram algo mais familiar para declaração de classe:
 
 class name {
 	constructor(first, last) {
@@ -265,7 +276,7 @@ class bigname extends name {
 		super(first, last)
 		this.middle = middle
 	}
-}
+
 	fullName() {
 		return `${this.first} ${this.middle} ${this.last}`
 	}
