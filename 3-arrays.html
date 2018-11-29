@@ -1,0 +1,271 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta charset="UTF-8"> 
+  </head> 
+  <body>
+    <p>paragraph</p>
+    <script> 
+/*
+ *  Três construtores para Array
+ *
+ *  Um array é um objeto. Você pode usar o construtor da classe Array para criar esse objeto de três formas:
+ **/
+
+let filmes = new Array() //vazio
+let filmes = new Array(3) //tamanho
+let filmes = new Array ("LOTR", "Twin Towers", "Ze Kingz") //elementos
+
+/*
+ * Mas usar esse construtor não é considerado boa prática (?). Existem outras formas:
+ * */
+
+ let filmes = []
+ let filmes = [3] //não se faz isso, BURRO! Você criou um array com UM elemento 3
+ let filmes = ["LOTR", "Twin Towers", "Ze Kingz"]
+ 
+/*
+ * Adicionar um elemento
+ *
+ * Em Javascript o tamanho do array é dinâmico
+ * */
+filmes[filmes.length] = "hobbiz"
+filmes.push("hobbiz")
+filmes.push("dwarvz", "dragons")
+ 
+/*
+ *    AGORA COMEÇA A COMPLICAR
+ *    Insere um elemento no início do array
+ * */
+filmes.unshift("orcs", "goblins")
+
+//Remover do fim do array
+filmes.pop()
+
+//Remover do início do array (e reduzir o tamanho)
+filmes.shift()
+
+//Remover uma parte do array
+let filmesRemovidos = filmes.splice(2,3) //primeiro index, quantidade. A parte removida é retornada.
+
+//Inserir um array dentro do outro
+filmes.splice(2,0,...filmesRemovidos) //primeiro index, quantidade a remover (0), o resto dos elementos é o que será inserido
+
+//Imprimir um array bidimensional
+avgTemps = []
+avgTemps[0] = [0,1,2,3,4]
+avgTemps[1] = [5,6,7,8,9]
+console.table(avgTemps)
+
+//Join arrays with concat
+let negativeNumbers = [-3,-2,-1]
+let zero = 0
+let positiveNumbers = [1,2,3]
+let allNumbers = negativeNumbers.concat(zero, positiveNumbers)
+
+/*
+ * Iterar um array sem usar um for
+ * */
+let numbers = [1,2,3,4,5,6,7,8,9]
+
+//função que vai usar para iterar
+const isEven = number => number % 2 === 0
+
+//usando every
+numbers.every(isEven) //vai iterar cada elemento até a função retornar false
+
+//usando some
+numbers.some(isEven) //vai iterar cada elemento até a função retornar true
+
+//usando forEach
+numbers.forEach(isEven)
+numbers.forEach(number => number % 2 === 0) //pode escrever a função dentro do forEach, se preferir (meio feio)
+
+//usando map (map gera um array novo com os resultados dos testes)
+const myMap = numbers.map(isEven)
+
+//usando filter, que é que nem map, só que no array de resultado estarão os elementos para os quais a função de teste retornar true
+const myFilterMap = numbers.filter(isEven)
+
+//usando uma função que mapeia um array reduzindo-o a uma coisa só (num acumulador)
+const reducer = (accumulator, currentValue) => accumulator + currentValue
+console.log(numbers.reduce(reducer))
+
+//iterando usando "quase um for"
+for(const number of numbers) {
+  console.log(isEven(number))
+}
+
+/* USANDO ITERADORES
+ * Existem vários sabores de iterador
+ * */
+
+let numbers = [1,2,3];
+
+//Symbol.iterator é o índice de uma função que se chama e retorna um iterador de valores. É o mais seboso e ninguém usa
+let iterator = numbers[Symbol.iterator]()
+console.log(iterator.next().value)
+console.log(iterator.next().value)
+console.log(iterator.next().value)
+console.log(iterator.next().value) //retorna undefined quando o array acaba
+
+console.log('Array entries, keys and values. O next() retorna um objeto com value e done');
+console.log('Array.entries() retorna um iterador cujos values são pares (chave, valor)');
+let aEntries = numbers.entries(); //retrieve iterator of key/value
+console.log(aEntries.next().value); // [0, 1] - position 0, value 1
+console.log(aEntries.next().value); // [1, 2] - position 1, value 2
+console.log(aEntries.next().value); // [2, 3] - position 2, value 3
+console.log(aEntries.next().value);
+
+console.log('Array.keys() retorna um iterador cujos values são chaves');
+let aKeys = numbers.keys(); //retrieve iterator of keys
+console.log(aKeys.next()); // {value: 0, done: false } done false means iterator has more values
+console.log(aKeys.next()); // {value: 1, done: false }
+console.log(aKeys.next()); // {value: 2, done: false }
+console.log(aKeys.next());
+
+console.log('Array.values() retorna um iterador cujos values são valores');
+let aValues = numbers.values();
+console.log(aValues.next()); // {value: 1, done: false } done false means iterator has more values
+console.log(aValues.next()); // {value: 2, done: false }
+console.log(aValues.next()); // {value: 3, done: false }
+console.log(aValues.next());
+
+/*
+ * MÉTODOS DA CLASSE Array
+ * */
+
+//método Array.from() copia um array
+let numbers = [1,2,3]
+let numbers2 = Array.from(numbers)
+
+//Array.from também aceita uma função de mapeamento
+let evens = Array.from(numbers, x => x % 2 === 0)
+
+//Array.of usa os argumentos para fazer um array
+let numbers3 = Array.of(1,2,3)
+//Se juntarmos com o operador spread, dá pra copiar um array tb
+let numbers4 = Array.of(...numbers3)
+
+//fill enche todas as posições do array com um valor
+let numbers5 = Array.of(...numbers)
+numbers5.fill(9)
+
+//fill também permite que se passe a posição inicial
+let numbers5.fill(0,1)
+
+//fill também permite que se passe a posição inicial e final
+let numbers5.fill(0,1,3)
+
+//fill também serve para inicializar um array
+let numbers6 = new Array(6).fill(5)
+
+//Método copyWithin(target, start, end)
+let copyArray = [1,2,3,4,5]
+copyArray.copyWithin(0,3)
+
+/*
+ * SORTING
+ * */
+let numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+
+//reverse() reverte o array
+numbers.reverse()
+
+//sort() ordena o array lexicograficamente, pois assume que todos os elementos são strings
+numbers.sort()
+
+//sort() também pode receber uma função de comparação que overrida a padrão
+numbers.sort((a,b) => a - b)
+
+//Crie uma função de comparação para ordenar objetos de acordo com o que quiser
+let movies = [{name: 'Matrix', year: 2004},
+              {name: 'LOTR', year: 2006},
+              {name: 'Alien', year: 2008}]
+
+function compareMovies(a, b) {
+ if (a.year < b.year)
+  return -1
+ else if (a.year == b.year)
+  return 0
+ else
+  return 1
+}
+
+movies.sort(compareMovies)
+
+//sort lexicografa usando os valores ASCII, portanto o alfabeto maiúsculo vem antes do minúsculo
+let countries = ["Burkina Faso", "burkina faso", "zambia", "Zambia", "Zimbabwe", "Botswana"]
+countries.sort() //["Botswana", "Burkina Faso", "Zambia", "Zimbabwe", "burkina faso", "zambia"]
+//como corrigir isso:
+function compareCountries(a,b) {
+ if (a.toLowerCase() < b.toLowerCase())
+  return -1
+ else if (a.toLowerCase() === b.toLowerCase())
+  return 0
+ else
+  return 1
+}
+countries.sort(compareCountries) //["Botswana", "Burkina Faso", "burkina faso", "zambia", "Zambia", "Zimbabwe"]
+//se quiser que as minúsculas venham sempre antes
+countries.sort((a,b) => a.localeCompare(b)) //["Botswana", "burkina faso", "Burkina Faso", "zambia", "Zambia", "Zimbabwe"]
+
+//para nomes com acentos use localeCompare
+let names = ["Maève", "Maéve", "Maeve"]
+names.sort()
+names.sort((a,b) => a.localeCompare(b)) //["Maeve", "Maéve", "Maève"]
+
+/*
+ * BUSCA
+ * */
+let numbers = [13,1,2,5,3,4,4,5,169]
+
+//indexOf() e lastIndexOf()
+console.log(numbers.indexOf(5))
+console.log(numbers.lastIndexOf(5))
+console.log(numbers.indexOf(8)) //retorna -1 porque não existe
+console.log(numbers.lastIndexOf(8)) //retorna -1 porque não existe
+
+//as funções find() e findIndex() recebem uma função de callback para encontrar o primeiro elemento que a satisfaça. Crie um callback recebendo os parâmetros (element, index, array). Use só o element
+function multipleOf13(element, index, array) {
+ if (element % 13 === 0)
+  return true
+ else
+  return false
+}
+numbers.find(multipleOf13)
+numbers.findIndex(multipleOf13)
+let numbers2 = [1,2,3,4]
+numbers2.find(multipleOf13) //undefined
+numbers2.findIndex(multipleOf13) //-1
+
+//função includes
+let numbers = [13,1,2,5,3,4,4,5,169]
+console.log(numbers.includes(5))
+//função includes com starting Index
+console.log(numbers.includes(5,3))
+console.log(numbers.includes(5,4))
+console.log(numbers.includes(5,8))
+
+//Outputando um array em uma string
+//toString() separa os elementos com vírgulas
+numbers.toString()
+//join() separa os elementos com o que você quiser
+numbers.join('-')
+
+/*
+ * TYPED ARRAYS: bons para trabalhar com material binário
+ * */
+let array = new Int8Array(5)
+let array = new Uint8Array(5)
+let array = new Uint8ClampedArray(5) //valores maiores que 255 são clampeados para 255 ao invés de ser aplicado o módulo de 256
+let array = new Int16Array(5)
+let array = new Uint16Array(5)
+let array = new Int32Array(5)
+let array = new Uint32Array(5)
+let array = new Float32Array(5)
+let array = new Float64Array(5)
+
+    </script> 
+  </body> 
+</html>

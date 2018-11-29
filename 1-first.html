@@ -1,0 +1,179 @@
+<!DOCTYPE html> 
+<html> 
+  <head> 
+    <meta charset="UTF-8"> 
+  </head> 
+  <body>
+    <p>paragraph</p>
+    <script> 
+//Tipos de javascript
+//primitivos
+let string = "lala"
+let number = 1 //integer number
+let number2 = 1.1 //floating point number
+let number3 = NaN //Not a Number number
+let boolean = true //boolean
+let undefined_ //undefined
+let null_ = null //null
+//derivados
+let object = {firstname:"miles", lastname:"prower"}
+let object2 = [0, 1, 2]
+let object3 = new Date()
+let object4 = function sum(a,b) { return a+b }
+
+//typeof é um operador e não uma função
+console.log("\nOperador typeof")
+console.log(typeof string)
+console.log(typeof number)
+console.log(typeof number2)
+console.log(typeof number3)
+console.log(typeof boolean)
+console.log(typeof undefined_)
+console.log(typeof null_) //deveria ser null, mas devido a uma cagada na implementação do javascript, typeof null retorna object
+console.log(typeof object)
+console.log(typeof object2)
+console.log(typeof object3)
+console.log(typeof object4)
+
+//imprimir no console
+console.log("\nUsos do console.log()")
+console.log("name:" + object) //concatena tudo numa string
+console.log("name:", object) //permite visualizar o conteúdo de um objeto
+
+console.log("number:" + number)
+console.log("number:", number) //fica mais arrumado até para um tipo primitivo
+
+//imprimir na página
+document.write("<p>"+string+"</p>")
+document.write("<h1>"+string+"</h1>")
+
+/* Evite variáveis e funções globais quando puder */
+
+//Não existe operador de potenciação. Usa-se a função Math.pow
+console.log("\nOperador de potenciação não existe. Usa-se a função Math.pow")
+console.log("Math.pow(2,3) =",Math.pow(2,3))
+
+//Operadores bitwise
+console.log("\nOperadores bitwise")
+/*
+ *A sintaxe ES6 para números binários começa com 0b
+ *Em Javascript number tem 32 bits e é signed representado por complemento a dois
+ *
+ *Inverti um número positivo. Que número é agora?
+ *  É negativo porque o msb é 1.
+ *  Para achar o módulo inverta de volta e some 1 (complemento a dois)
+ *
+ *Mesmíssima coisa para número negativo
+ *
+ *2^32 é 4 bilhões
+ *2^31 é 2 bilhões
+ *2^30 é 1 bilhão
+ *  */
+let a = 0b1
+let b = -2
+let c = 0b0
+
+//negação bitwise
+console.log("\nnegação bitwise")
+console.log("~"+a+" =", ~a)
+console.log("~"+b+" =", ~b)
+console.log("~"+c+" =", ~c)
+//xor
+console.log("\nxor")
+console.log(a + "^" + c +" =",a ^ c)
+console.log(a + "^" + a +" =",a ^ a)
+console.log(c + "^" + c +" =",c ^ c)
+//zero fill left & right (push zeroes)
+console.log("\nzero fill left & right (push zeroes)")
+console.log("1 << 31",1<<31) //-2 bilhões
+console.log("(1 << 31) >>> 1", (1<<31) >>> 1) //1 bilhão
+console.log("(1 << 31) >>> 2", (1<<31) >>> 2) //meio bilhão
+//signed right shift (push copies of leftmost bit from the left)
+console.log("\nsigned right shift (push copies of leftmost bit from the left)")
+console.log("1 << 31",1<<31) //-2 bilhões
+console.log("(1 << 31) >> 1", (1<<31) >> 1) //-1 bilhão
+console.log("(1 << 31) >> 2", (1<<31) >> 2) //-1/2 bilhão
+console.log("3 << 30",3<<30) //-1 bilhão
+console.log("(3 << 30) >> 1", (3<<30)>>1) //-1/2 bilhão
+console.log("(3 << 30) >> 2", (3<<30)>>2) //-1/4 bilhão
+
+console.log("\nOperadores lógicos")
+//negação lógica
+console.log("\nnegação lógica")
+console.log("!"+a+" =", !a)
+console.log("!"+b+" =", !b)
+console.log("!"+c+" =", !c)
+
+//Avaliação lógica de cada tipo
+console.log("\nAvaliação lógica de cada tipo")
+console.log("string vazia", !!"")
+console.log("string cheia", !!"0")
+console.log("number 0", !!0)
+console.log("number +0", !!+0)
+console.log("number -0", !!-0)
+console.log("number NaN", !!NaN)
+console.log("number não zero nem NaN", !!-1)
+console.log("undefined", !!undefined_)
+console.log("null", !!null_)
+console.log("object é sempre true", !![])
+console.log("object é sempre true", !!{})
+
+//Javascript tem dois operadores de comparação.
+console.log("\nOperador == não compara os tipos dos operandos")
+console.log("Comparar com NaN dá sempre", NaN == NaN) //false
+
+//Um boolean sendo comparado com qualquer coisa é avaliado com Number(boolean)
+console.log("Um boolean sendo comparado com qualquer coisa é avaliado com Number(boolean)")
+console.log("Number(true) =", Number(true))
+console.log("Number(false) =", Number(false))
+boolean = true
+
+//Uma string sendo comparada com um number é avaliada com Number(string), que pode retornar um número ou um NaN 
+console.log("Uma string sendo comparada com um number é avaliada com Number(string), que pode retornar um número ou um NaN")
+console.log('Number("a") =', Number("a"))
+console.log('Number("0") =', Number("0"))
+
+//Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true idem.
+console.log('Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true idem.')
+console.log('("a" == true) =', ("a" == true))
+console.log('("a" == 1) =', ("a" == 1))
+console.log('(NaN == 1) =', (NaN == 1))
+console.log('\n("a" == false) =', ("a" == false))
+console.log('("a" == 0) =', ("a" == 0))
+console.log('(NaN == 0) =', (NaN == 0))
+
+console.log("\nOperador === compara os tipos dos operandos antes de convertê-los")
+console.log('("1" == true)', ("1" == true))
+console.log('("1" === true)', ("1" === true))
+
+/* Em comparação de objetos o que importa é a referência.
+ * Um objeto nada mais é do que um conjunto de pares (chave,valor)
+ * Um objeto é convertido para um valor primitivo sempre que:
+ * - for usado por um operador numérico (+, -, <, etc). É convertido para number.
+ * - na impressão de um objeto com console.log(). É convertido para string.
+ *
+ * */
+console.log("\nUma classe com um método privado. Ou seja, cada instância terá seu próprio método na memória:")
+
+function Movie(name, rating) {
+  this.name = name
+  this.rating = rating
+  this.printName = function () {
+    console.log(this.name)
+  }
+}
+              
+let movie = new Movie("Deadpool", "R")
+console.log(movie)
+movie.printName()
+
+console.log("\nUm método público para uma classe. Ou seja, cada instância compartilhará o mesmo método na memória:")
+
+Movie.prototype.printRating = function () {
+  console.log(this.rating)
+}
+
+movie.printRating()
+    </script> 
+  </body> 
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='UTF-8'>
+	</head>
+	<body>
+		<p>Parágrafo</p>
+		<script>
+/* babeljs.io traduz código de um ECMAScript para outro
+ *
+ * Antes do ES5, o Javascript permitia que se declarasse mais de uma vez a mesma variável (usando var), o que potencialmente levava a um comportamento imprevisível.
+ * Por isso desde o ES5 recomenda-se que se use let ao invés de var.
+ * A única diferença do const para o let é que o const é somente leitura.
+ * Usar const ou let? Use o que quiser!
+ * */
+
+const obj = { name:"Dolan" }
+console.log(obj.name)
+obj.name = "Patatex" //funciona porque a variável constante está guardando uma referência ao objeto
+console.log(obj.name)
+ 
+ /*
+  * Template literals são uma nova forma de escrever uma string, usando graves. Dá para embutir variáveis sem precisar concatenar nada, e fazer quebra de linha sem precisar usar \n.
+  * */
+ 
+console.log(`Dolan:
+Pfv ${obj.name}`)
+ 
+/*
+ * Arrow function é uma simplificação de sintaxe de uma função.
+ * */
+
+let circleArea = function circleAreaa(r) {
+	return 3.14 * r ** 2
+}
+console.log(circleArea(2))
+
+let hello = function helloo() {
+	console.log("hello")
+}
+hello()
+
+//arrow function com chaves e operador return
+circleArea = r => {
+	return 3.14 * r ** 2
+}
+console.log(circleArea(2))
+
+hello = () => {
+	console.log("hello")
+}
+hello()
+
+//arrow function xiita sem chaves nem operador return
+circleArea = r => 3.14 * r * r
+console.log(circleArea(2))
+
+hello = () => console.log("hello")
+hello()
+
+/*
+ * Javascript permite valores padrão para os parâmetros de uma função, caso você a chame sem todos os parâmetros.
+ *
+ * Toda função javascript tem um objeto built-in chamado arguments.
+ * */
+
+function sum(x = 1, y = 2, z = 3)
+{
+	console.log(arguments)
+	return x+y+z
+}
+console.log(sum(10,20))
+
+/* Spread & Rest operators
+ * */
+
+//Torne um array em uma lista de parâmetros.
+let params = [3,4,5]
+console.log(sum(...params))
+
+//Torne parâmetros em um array ao chamar a função
+function hue(x,y,...a) {
+	return (x + y)*a.length
+}
+console.log(hue(1,2,'a','b','c'))
+
+/* Array Destructuring
+ * */
+
+let [x, y] = [1,2]
+//é equvalente a
+let x = 1
+let y = 2
+
+//swap inteligente
+[x,y] = [y,x]
+
+//Um objeto que era escrito assim:
+let x = 1
+let y = 2
+let obj = {x:x, y:y}
+//agora pode ser escrito assim:
+let [x,y] = [1,2]
+let obj = {x, y}
+
+/*
+ * SHORTHAND METHOD NAMES
+ *
+ * Declare funções dentro de objetos como se elas fossem propriedades.
+ * */
+
+//Vamos estabelecer o seguinte:
+//Objetos são uma coisa, classes são outra.
+//Uma classe começa com function e tem this dentro
+function Movie(name, rating) {
+  this.name = name
+  this.rating = rating
+  this.printName = function () {
+    console.log(this.name)
+  }
+}
+let movie = new Movie("Deadpool", "R")
+
+//Um objeto é um conjunto de pares (chave,valor). O valor pode ser uma função.
+const movie = {
+	name: 'Deadpool',
+	rating: 'R',
+	printHello: function printHello() {
+		console.log("Hello")
+	}
+}
+
+const movie = {
+	name: 'Deadpool',
+	rating: 'R',
+	printHello() {
+		console.log("Hello")
+	}
+}
+
+/*
+ *NOVA FORMA DE ESCREVER CLASSES
+ *
+ * Sai o function que faz o papel de um construtor e entra em seu lugar um class. Dentro vai um constructor.
+ */
+
+class Movie {
+	constructor (name, rating) {
+		this.name = name
+		this.rating = rating
+	}
+	printName() {
+		console.log(this.name)
+	}
+}
+
+/*
+ *CLASS INHERITANCE
+ */
+
+class DigitalMovie extends Movie {
+	constructor (name, rating, resolution) {
+		super(name, rating)
+		this.resolution = resolution
+	}
+	
+	printResolution() {
+		console.log(this.resolution)
+	}
+}
+
+
+
+
+
+
+
+
+		</script>
+	</body>
+</html>
