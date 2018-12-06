@@ -5,9 +5,12 @@
   </head> 
   <body>
     <p>paragraph</p>
-    <script> 
+    <script>
+
+//Há j maneiras de se criar um array novo
+
 /*
- *  Três construtores para Array
+ *  Três construtores ruins para Array
  *
  *  Um array é um objeto. Você pode usar o construtor da classe Array para criar esse objeto de três formas:
  **/
@@ -17,27 +20,62 @@ let filmes = new Array(3) //tamanho
 let filmes = new Array ("LOTR", "Twin Towers", "Ze Kingz") //elementos
 
 /*
- * Mas usar esse construtor não é considerado boa prática (?). Existem outras formas:
+ * Mas usar esse construtor não é considerado boa prática (?). Existem outras formas (três construtores bons):
  * */
 
  let filmes = []
  let filmes = [3] //não se faz isso, BURRO! Você criou um array com UM elemento 3
  let filmes = ["LOTR", "Twin Towers", "Ze Kingz"]
  
+ /*
+  * Agora usando métodos da classe Array:
+  *
+  * */
+ //new Array de tamanho tal, depois fill com um elemento
+let numbers6 = new Array(6).fill(5)
+
+//Criando um array a partir de outro com Array.from(outro):
+let numbers = ["LOTR", "Twin Towers", "Ze Kingz"]
+let numbers2 = Array.from(numbers)
+
+//Array.of usa os argumentos para fazer um array
+let numbers3 = Array.of("LOTR", "Twin Towers", "Ze Kingz")
+
+//Criando um array a partir de outro com Array.of(operador spread em outro array)
+let numbers4 = Array.of(...numbers3)
+
+//Criando um array a partir de dois ou mais:
+let negativeNumbers = [-3,-2,-1]
+let zero = 0
+let positiveNumbers = [1,2,3]
+let allNumbers = negativeNumbers.concat(zero, positiveNumbers) //é possível concatenar com elementos ou arrays
+
+ 
 /*
  * Adicionar um elemento
  *
  * Em Javascript o tamanho do array é dinâmico
  * */
-filmes[filmes.length] = "hobbiz"
+
+//enfia um no final
+filmes[filmes.length] = "hobbiz" //fácil demais, agora 4 métodos:
+
+//enfia um no final
 filmes.push("hobbiz")
-filmes.push("dwarvz", "dragons")
- 
-/*
- *    AGORA COMEÇA A COMPLICAR
- *    Insere um elemento no início do array
- * */
+
+//enfia mais de um no final
+filmes.push("hobbiz", "dwarvz")
+
+//enfia um no começo
+filmes.unshift("orcs") 
+
+//enfia mais de um no começo
 filmes.unshift("orcs", "goblins")
+
+/*
+ * Remover um elemento
+ * 
+ * */
 
 //Remover do fim do array
 filmes.pop()
@@ -45,124 +83,119 @@ filmes.pop()
 //Remover do início do array (e reduzir o tamanho)
 filmes.shift()
 
-//Remover uma parte do array
-let filmesRemovidos = filmes.splice(2,3) //primeiro index, quantidade. A parte removida é retornada.
+//Remover um ou mais de um elemento (contíguo) do array e guardá-lo(s)
+let filmesRemovidos = filmes.splice(2,3) //índice, quantidade
 
-//Inserir um array dentro do outro
+//Inserir de volta a parte que removeu e guardou (ou enfiar um array no meio do outro)
 filmes.splice(2,0,...filmesRemovidos) //primeiro index, quantidade a remover (0), o resto dos elementos é o que será inserido
 
-//Imprimir um array bidimensional
-avgTemps = []
-avgTemps[0] = [0,1,2,3,4]
-avgTemps[1] = [5,6,7,8,9]
-console.table(avgTemps)
-
-//Join arrays with concat
-let negativeNumbers = [-3,-2,-1]
-let zero = 0
-let positiveNumbers = [1,2,3]
-let allNumbers = negativeNumbers.concat(zero, positiveNumbers)
-
-/*
- * Iterar um array sem usar um for
- * */
-let numbers = [1,2,3,4,5,6,7,8,9]
-
-//função que vai usar para iterar
-const isEven = number => number % 2 === 0
-
-//usando every
-numbers.every(isEven) //vai iterar cada elemento até a função retornar false
-
-//usando some
-numbers.some(isEven) //vai iterar cada elemento até a função retornar true
-
-//usando forEach
-numbers.forEach(isEven)
-numbers.forEach(number => number % 2 === 0) //pode escrever a função dentro do forEach, se preferir (meio feio)
-
-//usando map (map gera um array novo com os resultados dos testes)
-const myMap = numbers.map(isEven)
-
-//usando filter, que é que nem map, só que no array de resultado estarão os elementos para os quais a função de teste retornar true
-const myFilterMap = numbers.filter(isEven)
-
-//usando uma função que mapeia um array reduzindo-o a uma coisa só (num acumulador)
-const reducer = (accumulator, currentValue) => accumulator + currentValue
-console.log(numbers.reduce(reducer))
-
-//iterando usando "quase um for"
-for(const number of numbers) {
-  console.log(isEven(number))
-}
-
-/* USANDO ITERADORES
- * Existem vários sabores de iterador
- * */
-
-let numbers = [1,2,3];
-
-//Symbol.iterator é o índice de uma função que se chama e retorna um iterador de valores. É o mais seboso e ninguém usa
-let iterator = numbers[Symbol.iterator]()
-console.log(iterator.next().value)
-console.log(iterator.next().value)
-console.log(iterator.next().value)
-console.log(iterator.next().value) //retorna undefined quando o array acaba
-
-console.log('Array entries, keys and values. O next() retorna um objeto com value e done');
-console.log('Array.entries() retorna um iterador cujos values são pares (chave, valor)');
-let aEntries = numbers.entries(); //retrieve iterator of key/value
-console.log(aEntries.next().value); // [0, 1] - position 0, value 1
-console.log(aEntries.next().value); // [1, 2] - position 1, value 2
-console.log(aEntries.next().value); // [2, 3] - position 2, value 3
-console.log(aEntries.next().value);
-
-console.log('Array.keys() retorna um iterador cujos values são chaves');
-let aKeys = numbers.keys(); //retrieve iterator of keys
-console.log(aKeys.next()); // {value: 0, done: false } done false means iterator has more values
-console.log(aKeys.next()); // {value: 1, done: false }
-console.log(aKeys.next()); // {value: 2, done: false }
-console.log(aKeys.next());
-
-console.log('Array.values() retorna um iterador cujos values são valores');
-let aValues = numbers.values();
-console.log(aValues.next()); // {value: 1, done: false } done false means iterator has more values
-console.log(aValues.next()); // {value: 2, done: false }
-console.log(aValues.next()); // {value: 3, done: false }
-console.log(aValues.next());
 
 /*
  * MÉTODOS DA CLASSE Array
  * */
 
-//método Array.from() copia um array
-let numbers = [1,2,3]
-let numbers2 = Array.from(numbers)
-
 //Array.from também aceita uma função de mapeamento
 let evens = Array.from(numbers, x => x % 2 === 0)
 
-//Array.of usa os argumentos para fazer um array
-let numbers3 = Array.of(1,2,3)
-//Se juntarmos com o operador spread, dá pra copiar um array tb
-let numbers4 = Array.of(...numbers3)
-
-//fill enche todas as posições do array com um valor
-let numbers5 = Array.of(...numbers)
-numbers5.fill(9)
-
 //fill também permite que se passe a posição inicial
-let numbers5.fill(0,1)
+numbers5.fill(0,1)
 
 //fill também permite que se passe a posição inicial e final
-let numbers5.fill(0,1,3)
+numbers5.fill(0,1,3)
 
-//fill também serve para inicializar um array
-let numbers6 = new Array(6).fill(5)
-
-//Método copyWithin(target, start, end)
+//Método copyWithin(target, start, end). Copiar do array para o próprio array.
 let copyArray = [1,2,3,4,5]
 copyArray.copyWithin(0,3)
+
+/*
+ * Imprimir um array bidimensional
+ * */
+avgTemps = []
+avgTemps[0] = [0,1,2,3,4]
+avgTemps[1] = [5,6,7,8,9]
+console.table(avgTemps)
+
+
+/*
+ * ITERAR UM ARRAY SEM USAR UM FOR, NEM UM ITERADOR
+ * */
+let numbers = [0,1,2,3,4,5,6,7,8,9]
+
+//função que vai usar para iterar. O retorno da função será interpretado como booleano.
+const isNegative = number => {
+ const result = number < 0
+ console.log(number, result)
+ return result
+}
+
+const isntNegative = number => {
+ const result = number >= 0
+ console.log(number, result)
+ return result
+}
+
+//iterando o array com every
+numbers.every(isNegative) //Roda a função em cada elemento em sequência. Para precocemente se uma rodada retornar false. Retorna o retorno da última rodada. Use sempre uma função que retorne booleano.
+numbers.every(isntNegative)
+
+//iterando o array com some
+numbers.some(isNegative) //Que nem o every. Só para quando o array acaba ou uma iteração retorna true.
+numbers.some(isntNegative)
+
+//iterando o array com forEach
+numbers.forEach(isEven) //A diferença do forEach pros every e some é que ele não retorna nada, e itera todos os elementos independente do resultado
+
+//pode escrever a função dentro do forEach, some, ou every se preferir (meio feio)
+numbers.forEach(number => number % 2 === 0)
+numbers.some(number => number % 2 === 0)
+numbers.every(number => number % 2 === 0)
+
+//iterar com map gera um array novo com os retornos da função
+const isEven = x => x % 2 === 0
+const myMap = numbers.map(isEven)
+
+//iterar com filter é que nem com map, só que em vez dos retornos da função, o novo array terá os elementos para os quais os retornos avaliavam como true
+const myEvenNumbers = numbers.filter(isEven)
+
+//usando uma função que mapeia um array reduzindo-o a uma coisa só (num acumulador)
+const reducer = (accumulator, currentValue) => accumulator + currentValue //é sempre uma função com essa assinatura (accumulator, currentValue)
+console.log(numbers.reduce(reducer))
+
+//iterando usando "for const of"
+for(const number of numbers) {
+  console.log(number)
+}
+
+/*
+ * ITERAR UM ARRAY USANDO UM ITERADOR
+ * Existem vários sabores de iterador
+ * */
+
+let letters = ['a', 'e', 'i', 'o', 'u']
+
+//Symbol.iterator é o índice de uma função que se chama e retorna um iterador de valores para aquele array. É o mais seboso e ninguém usa
+let iterator = letters[Symbol.iterator]()
+console.log(iterator.next()) //iterator.next() retorna um objeto com dois parâmetros: value e done. Quando o array acaba, value = undefined e done = true
+console.log(iterator.next().value) 
+console.log(iterator.next().done)
+
+//array.entries() retorna outro iterador. A diferença do next de entries é que seu value é um objeto [indice, valor]. O done é a mesma coisa.
+let entries = letters.entries(); //retrieve iterator of key/value
+console.log(entries.next()); // value = [0, 'a'], done = false
+console.log(entries.next().value); // [1, 'e']
+console.log(entries.next().done);
+
+//array.keys() é igual a Symbol.iterator, exceto que em value vai o índice e não o valor
+let keys = letters.keys(); //retrieve iterator of keys
+console.log(keys.next()); // {value: 0, done: false } done false means iterator has more values
+console.log(keys.next().value);
+console.log(keys.next().done);
+
+//Array.values é igualzinho a Symbol.iterator
+let values = letters.values();
+console.log(values.next());
+console.log(values.next().value);
+console.log(values.next().done);
 
 /*
  * SORTING
@@ -172,10 +205,10 @@ let numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 //reverse() reverte o array
 numbers.reverse()
 
-//sort() ordena o array lexicograficamente, pois assume que todos os elementos são strings
+//sort() assume que todos os elementos são strings e ordena ASCIImente
 numbers.sort()
 
-//sort() também pode receber uma função de comparação que overrida a padrão
+//Se não quiser que sort interprete os elementos como strings e ordene ASCIImente, entregue-lhe uma função de comparação
 numbers.sort((a,b) => a - b)
 
 //Crie uma função de comparação para ordenar objetos de acordo com o que quiser
@@ -220,13 +253,14 @@ names.sort((a,b) => a.localeCompare(b)) //["Maeve", "Maéve", "Maève"]
  * */
 let numbers = [13,1,2,5,3,4,4,5,169]
 
-//indexOf() e lastIndexOf()
+//indexOf() e lastIndexOf() retornam -1 quando não acham
 console.log(numbers.indexOf(5))
 console.log(numbers.lastIndexOf(5))
 console.log(numbers.indexOf(8)) //retorna -1 porque não existe
 console.log(numbers.lastIndexOf(8)) //retorna -1 porque não existe
 
-//as funções find() e findIndex() recebem uma função de callback para encontrar o primeiro elemento que a satisfaça. Crie um callback recebendo os parâmetros (element, index, array). Use só o element
+//as funções find() e findIndex() recebem uma função de callback para encontrar o primeiro elemento que a satisfaça.
+//Crie um callback recebendo os parâmetros (element, index, array). Use só o element
 function multipleOf13(element, index, array) {
  if (element % 13 === 0)
   return true
