@@ -7,88 +7,61 @@
     <p>paragraph</p>
     <script>
 
-//Há j maneiras de se criar um array novo
+//Há muitas maneiras de se criar um array novo
 
 /*
- *  Três construtores ruins para Array
- *
- *  Um array é um objeto. Você pode usar o construtor da classe Array para criar esse objeto de três formas:
+ *  Um array é um objeto. Você pode usar um construtor ou um método da classe Array para criar esse objeto:
  **/
 
-let filmes = new Array() //vazio
-let filmes = new Array(3) //tamanho
-let filmes = new Array ("LOTR", "Twin Towers", "Ze Kingz") //elementos
+let a = new Array() //vazio
+let b = new Array(3).fill(6) //tamanho 3, preenchido com 6
+let c = new Array('a','b','c') //elementos
+let d = Array.of('a','b','c') //Array.of usa os argumentos para fazer um array, como se fosse um construtor
+let e = Array.from(d) //Criando um array a partir de outro com Array.from(outro)
+let f = Array.of(...d) //Criando um array a partir de outro com Array.of(operador spread em outro array)
 
 /*
- * Mas usar esse construtor não é considerado boa prática (?). Existem outras formas (três construtores bons):
+ * Sem usar a classe Array:
  * */
 
  let filmes = []
- let filmes = [3] //não se faz isso, BURRO! Você criou um array com UM elemento 3
  let filmes = ["LOTR", "Twin Towers", "Ze Kingz"]
- 
- /*
-  * Agora usando métodos da classe Array:
-  *
-  * */
- //new Array de tamanho tal, depois fill com um elemento
-let numbers6 = new Array(6).fill(5)
+ let filmes = [3] //ERRADO, BURRÃO. Isso aqui é Javascript. Você criou um array unitário com um 3
 
-//Criando um array a partir de outro com Array.from(outro):
-let numbers = ["LOTR", "Twin Towers", "Ze Kingz"]
-let numbers2 = Array.from(numbers)
+/*
+ * Criando um array a partir de dois ou mais:
+ *
+ * */
 
-//Array.of usa os argumentos para fazer um array
-let numbers3 = Array.of("LOTR", "Twin Towers", "Ze Kingz")
-
-//Criando um array a partir de outro com Array.of(operador spread em outro array)
-let numbers4 = Array.of(...numbers3)
-
-//Criando um array a partir de dois ou mais:
 let negativeNumbers = [-3,-2,-1]
 let zero = 0
 let positiveNumbers = [1,2,3]
 let allNumbers = negativeNumbers.concat(zero, positiveNumbers) //é possível concatenar com elementos ou arrays
 
- 
+
 /*
  * Adicionar um elemento
  *
- * Em Javascript o tamanho do array é dinâmico
+ * Em Javascript o tamanho do array é dinâmico.
+ * Todos os métodos que removem elementos retornam-nos
  * */
 
 //enfia um no final
-filmes[filmes.length] = "hobbiz" //fácil demais, agora 4 métodos:
+filmes[filmes.length] = "hobbiz" //fácil demais, agora as melhores:
 
-//enfia um no final
-filmes.push("hobbiz")
-
-//enfia mais de um no final
+//enfia/retira no final
 filmes.push("hobbiz", "dwarvz")
-
-//enfia um no começo
-filmes.unshift("orcs") 
-
-//enfia mais de um no começo
-filmes.unshift("orcs", "goblins")
-
-/*
- * Remover um elemento
- * 
- * */
-
-//Remover do fim do array
+filmes.pop()
 filmes.pop()
 
-//Remover do início do array (e reduzir o tamanho)
+//enfia/retira no começo
+filmes.unshift("orcs", "goblins")
+filmes.shift()
 filmes.shift()
 
-//Remover um ou mais de um elemento (contíguo) do array e guardá-lo(s)
-let filmesRemovidos = filmes.splice(2,3) //índice, quantidade
-
-//Inserir de volta a parte que removeu e guardou (ou enfiar um array no meio do outro)
-filmes.splice(2,0,...filmesRemovidos) //primeiro index, quantidade a remover (0), o resto dos elementos é o que será inserido
-
+//Remover um elemento (ou mais) de qualquer parte do array
+let filmesRemovidos = filmes.splice(2,3) //índice, quantidade a remover
+filmes.splice(2,0,...filmesRemovidos) //Inserir de volta a parte que removeu e guardou (ou enfiar um array no meio do outro)
 
 /*
  * MÉTODOS DA CLASSE Array
@@ -245,7 +218,7 @@ countries.sort((a,b) => a.localeCompare(b)) //["Botswana", "burkina faso", "Burk
 
 //para nomes com acentos use localeCompare
 let names = ["Maève", "Maéve", "Maeve"]
-names.sort()
+names.sort() //["Maeve", "Maève", "Maéve"]
 names.sort((a,b) => a.localeCompare(b)) //["Maeve", "Maéve", "Maève"]
 
 /*
@@ -281,14 +254,14 @@ console.log(numbers.includes(5,3))
 console.log(numbers.includes(5,4))
 console.log(numbers.includes(5,8))
 
-//Outputando um array em uma string
-//toString() separa os elementos com vírgulas
-numbers.toString()
-//join() separa os elementos com o que você quiser
-numbers.join('-')
+/*
+ * Para transformar um array em uma string, use .toString() ou .join()
+ * */
+numbers.toString() //toString() separa os elementos com vírgulas
+numbers.join('-') //join() separa os elementos com o que você quiser
 
 /*
- * TYPED ARRAYS: bons para trabalhar com material binário
+ * TYPED ARRAYS: bons para se trabalhar com material binário
  * */
 let array = new Int8Array(5)
 let array = new Uint8Array(5)
