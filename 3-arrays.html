@@ -91,6 +91,7 @@ avgTemps[1] = [5,6,7,8,9]
 console.table(avgTemps)
 
 /*
+ * Reasoning: Pra que iterar um array? Pra passar uma função sequencialmente nos elementos (até que uma condição seja atingida, ou até o fim do array)
  * ITERAR UM ARRAY SEM USAR UM FOR, NEM UM ITERADOR
  * */
 let numbers = [0,1,2,3,4,5,6,7,8,9]
@@ -100,7 +101,7 @@ const isNegative = number => {
 	const result = number < 0
 	console.log(number, result)
 	return result
-}
+}	
 
 const isntNegative = number => {
 	const result = number >= 0
@@ -108,37 +109,42 @@ const isntNegative = number => {
 	return result
 }
 
-//iterando o array com every
-numbers.every(isNegative) //Roda a função em cada elemento em sequência. Para precocemente se uma rodada retornar false. Retorna o retorno da última rodada. Use sempre uma função que retorne booleano.
+//iterando o array com every (pede função booleana)
+numbers.every(isNegative) //Itera a função até ela retornar false ou chegar no fim. Retorna o último retorno.
 numbers.every(isntNegative)
 
-//iterando o array com some
-numbers.some(isNegative) //Que nem o every. Só para quando o array acaba ou uma iteração retorna true.
+//iterando o array com some (pede função booleana)
+numbers.some(isNegative) //Itera a função até ela retornar true ou chegar no fim. Retorna o último retorno.
 numbers.some(isntNegative)
 
-//iterando o array com forEach
-numbers.forEach(isEven) //A diferença do forEach pros every e some é que ele não retorna nada, e itera todos os elementos independente do resultado
+//iterando o array com forEach (funciona com qualquer função)
+numbers.forEach(isEven) //Itera a função no array todo e não retorna nada
+
+//iterando o array com for of
+for(const number of numbers) {
+	console.log(number)
+}
 
 //pode escrever a função dentro do forEach, some, ou every se preferir (meio feio)
 numbers.forEach(number => number % 2 === 0)
 numbers.some(number => number % 2 === 0)
 numbers.every(number => number % 2 === 0)
 
+/*
+ * Outra necessidade de se iterar é para passar uma função em todos so elementos do array e criar outro
+ */
 //iterar com map gera um array novo com os retornos da função
 const isEven = x => x % 2 === 0
 const myMap = numbers.map(isEven)
 
-//iterar com filter é que nem com map, só que em vez dos retornos da função, o novo array terá os elementos para os quais os retornos avaliavam como true
+//iterar com filter (pede uma função booleana) cria um novo array com os elementos para os quais a função retornou true
 const myEvenNumbers = numbers.filter(isEven)
 
-//usando uma função que mapeia um array reduzindo-o a uma coisa só (num acumulador)
-const reducer = (accumulator, currentValue) => accumulator + currentValue //é sempre uma função com essa assinatura (accumulator, currentValue)
+/*
+ * A última motivação de se iterar um array é reduzi-lo a um valor só (um acumulador)
+ */
+const reducer = (accumulator, currentValue) => accumulator + currentValue //o reducer é sempre uma função com essa assinatura (accumulator, currentValue)
 console.log(numbers.reduce(reducer))
-
-//iterando usando "for const of"
-for(const number of numbers) {
-	console.log(number)
-}
 
 /*
  * ITERAR UM ARRAY USANDO UM ITERADOR
@@ -274,6 +280,6 @@ let array = new Int32Array(5)
 let array = new Uint32Array(5)
 let array = new Float32Array(5)
 let array = new Float64Array(5)
-		</script> 
+		</script>
 	</body> 
 </html>
