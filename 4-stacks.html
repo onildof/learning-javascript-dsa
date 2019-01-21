@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>4 - Stacks</title>
+	</head>
+	<body>
+		<p>4 - Stacks</p>
+		<script>
+/*
+ * Implementar uma pilha usando um array significa que todos os métodos terão
+ * complexidade O(n), o que significa que na pior das hipóteses todos os
+ * elementos do array terão de ser iterados até que se encontre o elemento
+ * desejado.
+ *
+ * Por isso uma melhor implementação é usando uma classe.
+ * */
+
+class Stack {
+	constructor() {
+		this.count = 0
+		this.items = {}
+	}
+	
+	size() {
+		return this.count
+	}
+	
+	isEmpty() {
+		return this.count === 0
+	}
+	
+	push(element) {
+		this.items[this.count++] = element //Não é porque items é um array. Items é um objeto, e todo objeto é uma coleção de pares chave-valor, que nem um array.
+	}
+	
+}
+
+const stack = new Stack()
+stack.push(5)
+stack.push(8)
+
+		</script>
+	</body>
+</html>
