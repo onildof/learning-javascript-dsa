@@ -216,6 +216,7 @@ function base10tobaseb(n, b) {
 
 //Balanceamento de parênteses
 //A cada ( você dá um push. A cada ) dá um pop. Se retornar undefined, deu ruim.
+//se acabar a sentença com a pilha vazia, deu bom
 function checkParentheses(sentence) {
 	let output = false
 	let s = new Stack()
@@ -245,30 +246,70 @@ function checkParentheses(sentence) {
 }
 
 //Torre de Hanoi
-//Tens 3 pinos e 5 discos. Os 5 discos devem ser movidos, um por um, para outro
-//pino sem que um disco maior seja posto em cima de um menor.
+//Tens 3 pinos e N discos. Os 5 discos devem ser movidos do pino 1 pro pino 3.
+//Não pode botar um disco maior em cima de um menor.
+//A mecânica de pilha é conveniente porque o problema é literalmente várias
+//pilhas.
 
-function hannoi(stackcount) {
-	let stacks = []
-	
-	for (let i = 0; i < stackcount; i++)
-	{
-		stacks.push(new Stack())
-	}
-	
-	//stack setup
-	stacks[0].push(5)
-	stacks[0].push(4)
-	stacks[0].push(3)
-	stacks[0].push(2)
-	stacks[0].push(1)
-	
-	
-	
-	
-	
-	
+//Stack setup
+let stackA, stackB, stackC, moves
+stackA = new Stack()
+stackB = new Stack()
+stackC = new Stack()
+
+//stackA.push(5) //função push da nossa classe Stack
+stackA.push(4)
+stackA.push(3)
+stackA.push(2)
+stackA.push(1)
+
+function hanoiPrint() {
+	console.log(`A`+stackA.toString())
+	console.log(`B`+stackB.toString())
+	console.log(`C`+stackC.toString())
+	moves++
 }
+
+function hanoi(n, from, to, aux) {
+	if (n === 1) {
+		console.log(`lalau`)
+		to.push(from.pop())
+		hanoiPrint()
+	}
+	else {
+		console.log(`lol`)
+		hanoi(n-1, from, aux, to)
+		to.push(from.pop())
+		hanoiPrint()
+		hanoi(n-1, aux, to, from)
+	}
+}
+
+hanoiPrint()
+moves = 0 //apenas para observação
+hanoi(stackA.count,stackA,stackC,stackB)
+console.log(`${moves} moves`)
+/* Como fiz?
+ * Identifiquei as variáveis:
+ * 	quantidade de discos
+ * 	pilha origem
+ * 	pilha destino
+ * 	pilha auxiliar
+ *
+ * Daí tratei um subconjunto de discos como outro problema igual, o que me levou
+ * a usar recursão.
+ *
+ * Contei a quantidade de movimentos para verificar a complexidade de tempo
+ * dessa solução:
+ * 1 1
+ * 2 3
+ * 3 7
+ * 4 15
+ * 5 31
+ * O(2^n - 1) < O(2^n)
+ *
+ * Não sei deduzir isso apenas olhando para a função
+ */
 		</script>
 	</body>
 </html>
