@@ -54,7 +54,7 @@ class Stack {
  * são pares (chave, valor).
  */
 
-//Como usar essa classe no mundo real?
+//Como usar essa classe?
 const stack = new Stack()
 stack.push(8)
 stack.push(4)
