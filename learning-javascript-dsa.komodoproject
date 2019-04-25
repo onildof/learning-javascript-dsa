@@ -2,5 +2,6 @@
 <!-- Komodo Project File - DO NOT EDIT -->
 <project id="5feff907-5300-447e-bd9b-10ac476331d6" kpf_version="5" name="learning-javascript-dsa.komodoproject">
 <preference-set idref="5feff907-5300-447e-bd9b-10ac476331d6" id="project" preftype="project">
+  <long id="prefs_version">1</long>
 </preference-set>
 </project>
