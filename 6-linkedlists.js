@@ -440,3 +440,174 @@ class DoublyNode extends Node {
 		this.prev = undefined
 	}
 }
+
+// Circular Linked Lists
+
+class LinkedList {
+	constructor() {
+		this.head = undefined
+		this.count = 0
+	}
+	
+	push(element) {
+		if (this.count > 0) {
+			let last = this.getElementAt(this.count - 1)
+			last.next = new Node(element)
+		} else {
+			this.head = new Node(element)
+		}
+			
+		this.count += 1
+	}
+	
+	removeElementAt(index) {
+		if (index >= 0 && index < this.count) {
+			if (index === 0) {
+				this.head = this.head.next
+			} else {
+				let previous = this.getElementAt(index - 1)
+				let current = previous.next
+				previous.next = current.next
+			}
+			
+			this.count--
+		}
+	}
+	
+	insert(element, index) {
+		if (index >= 0 && index <= this.count) {
+			let node = new Node(element)
+			
+			if (index === 0) {
+				node.next = this.head
+				this.head = node
+			} else {
+				let previous = this.getElementAt(index - 1)
+				let current = previous.next
+				node.next = current
+				previous.next = node
+			}
+			
+			this.count++
+			return true
+		}
+		
+		return false
+	}
+	
+	getElementAt(index) {
+		let node = undefined
+		
+		if (index >= 0 && index < this.count) {
+			node = this.head
+			
+			for (let i = 1; i < index + 1; i++) {
+				node = node.next
+			}
+		}
+		
+		return node
+	}
+	
+	indexOf(element) {
+		let current = this.head
+		
+		for(let i = 0; i < this.count; i++) {
+			if (current.element === element) {
+				return i
+			}
+			
+			current = current.next
+		}
+		
+		return -1
+	}
+	
+	toString() {
+		let result = ''
+		
+		if (this.count === 0) {
+			return result
+		} else {
+			let node = this.head
+			result = `${node.element}`
+			
+			for(let i = 1; i < this.count; i++) {
+				node = node.next
+				result += `,${node.element}`
+			}
+			
+			return result
+		}
+	}
+}
+
+class Node {
+	constructor(element) {
+		this.element = element
+		this.next = undefined
+	}
+}
+
+class CircularLinkedList extends LinkedList {
+	constructor() {
+		super()
+	}
+	
+	insert(element, index) {
+		if (index >= 0 && index <= this.count) {
+			let node = new Node(element)
+			
+			if (index === 0) {
+				if (this.count === 0) {
+					node.next = node
+					this.head = node
+				} else {
+					node.next = this.head
+					let tail = this.getElementAt(this.count - 1)
+					tail.next = node
+					this.head = node
+				}
+			} else if (index === this.count) {
+				let tail = this.getElementAt(index - 1)
+				tail.next = node
+				node.next = this.head
+			} else {
+				let previous = this.getElementAt(index - 1)
+				let current = this.getElementAt(index)
+				node.next = current
+				previous.next = node
+			}
+			
+			this.count += 1
+			return true
+		}
+		
+		return false
+	}
+	
+	removeElementAt(index) {
+		if (index >= 0 && index <= this.count) {
+			if (index === 0) {
+				let tail = this.getElementAt(this.count - 1)
+				this.head = this.head.next
+				tail.next = this.head
+			} else {
+				if (this.count === 1) {
+					this.head = undefined
+				} else if (index === this.count - 1) {
+					let previous = this.getElementAt(index - 1)
+					previous.next = this.head
+				} else {
+					let previous = this.getElementAt(index - 1)
+					let next = this.getElementAt(index + 1)
+					previous.next = next
+				}
+			}
+			this.count -= 1
+			return true
+		}
+		
+		return false
+	}
+}
