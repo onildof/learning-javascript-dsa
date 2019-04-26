@@ -365,3 +365,78 @@ class Node {
 		this.next = undefined
 	}
 }
+
+//DOUBLY LINKED LIST. Cada nó tem um ponteiro pro nó anterior
+//e a classe tem um ponteiro para o último nó também
+
+class DoublyLinkedList extends LinkedList {
+	constructor() {
+		super()
+		this.tail = undefined
+	}
+	
+	insert(element, index) {
+		if (index >= 0 && index <= this.count) {
+			let node = new DoublyNode(element)
+			
+			if (this.count === 0) {
+				this.head = node
+				this.tail = node
+			} else {
+				if (index === 0) {
+					node.next = this.head
+					this.head.prev = node
+					this.head = node
+				} else if (index > 0 && index < this.count) {
+					let current = this.getElementAt(index)
+					node.next = current
+					node.prev = current.prev
+					current.prev.next = node
+					current.prev = node
+				} else {
+					this.tail.next = node
+					node.prev = this.tail
+					this.tail = node
+				}
+			}
+			
+			this.count += 1
+			return true
+		}
+		
+		return false
+	}
+	
+	removeElementAt(index) {
+		if (index >= 0 && index < this.count) {
+			if (index === 0) {
+				if (this.count === 1) {
+					this.head = undefined
+					this.tail = undefined
+				} else {
+					this.head = this.head.next
+					this.head.prev = undefined
+				}
+			} else if (index === this.count - 1) {
+				this.tail = this.tail.prev
+				this.tail.next = undefined
+			} else {
+				let current = this.getElementAt(index)
+				current.prev.next = current.next
+				current.next.prev = current.prev
+			}
+
+			this.count -= 1
+			return true
+		}
+		
+		return false
+	}
+}
+
+class DoublyNode extends Node {
+	constructor(element, next, prev) {
+		super(element, next)
+		this.prev = undefined
+	}
+}
