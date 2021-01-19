@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html> 
   <head> 
     <meta charset="UTF-8"> 
@@ -9,17 +9,24 @@
 //Tipos de javascript
 //primitivos
 let string = "lala"
+let string2 = "1"
 let number = 1 //integer number
 let number2 = 1.1 //floating point number
 let number3 = NaN //Not a Number number
 let boolean = true //boolean
 let undefined_ //undefined
 let null_ = null //null
+//faltou symbol
+//note que esses são apenas os nomes das variáveis. Eu não estou tipando as variáveis pq JS não é fortemente tipada.
 //derivados
 let object = {firstname:"miles", lastname:"prower"}
 let object2 = [0, 1, 2]
 let object3 = new Date()
 let object4 = function sum(a,b) { return a+b }
+let object5 = new Boolean(true)
+let object6 = new String('1')
+let object7 = new Number(1)
+//faltou expressão regular
 
 //typeof é um operador e não uma função
 console.log("\nOperador typeof")
@@ -37,17 +44,15 @@ console.log(typeof object4)
 
 //imprimir no console
 console.log("\nUsos do console.log()")
-console.log("name:" + object) //concatena tudo numa string
-console.log("name:", object) //permite visualizar o conteúdo de um objeto
+console.log("name:" + object) //concatena tudo numa string. Se for um objeto, vai imprimir o inútil [object Object]
+console.log("name:", object) //imprime o conteúdo de um objeto (MUITO ÚTIL)
 
 console.log("number:" + number)
-console.log("number:", number) //fica mais arrumado até para um tipo primitivo
+console.log("number:", number) //fica mais arrumado até para um tipo primitivo. Dê preferência à vírgula
 
 //imprimir na página
 document.write("<p>"+string+"</p>")
 document.write("<h1>"+string+"</h1>")
-
-/* Evite variáveis e funções globais quando puder */
 
 //Não existe operador de potenciação. Usa-se a função Math.pow
 console.log("\nOperador de potenciação não existe. Usa-se a função Math.pow")
@@ -113,28 +118,54 @@ console.log("number +0", !!+0)
 console.log("number -0", !!-0)
 console.log("number NaN", !!NaN)
 console.log("number não zero nem NaN", !!-1)
+//fica fácil de decorar se você desenhar os conjuntos
 console.log("undefined", !!undefined_)
 console.log("null", !!null_)
 console.log("object é sempre true", !![])
 console.log("object é sempre true", !!{})
 
-//Javascript tem dois operadores de comparação.
-console.log("\nOperador == não compara os tipos dos operandos")
-console.log("Comparar com NaN dá sempre", NaN == NaN) //false
+//Javascript tem dois operadores de comparação: loose equality e strict equality
+console.log("\nJavascript tem dois operadores de comparação: loose equality e strict equality")
 
-//Um boolean sendo comparado com qualquer coisa é avaliado com Number(boolean)
-console.log("Um boolean sendo comparado com qualquer coisa é avaliado com Number(boolean)")
+//O operador == ("loose equality") primeiro verifica se os dois lados são do mesmo tipo. Se forem, realiza a comparação igual ao operador === ("strict equality"). Se forem diferentes, ele primeiro converte para número Strings, Booleanos e Objetos. E só depois compara.
+console.log('O operador == ("loose equality") primeiro verifica se os dois lados são do mesmo tipo. Se forem, realiza a comparação igual ao operador === ("strict equality"). Se forem diferentes, ele primeiro converte para número Strings, Booleanos e Objetos. E só depois compara.')
+console.log("number == string", number, string, number == string)
+console.log("number == string2", number, string2, number == string2)
+
+//Nesse contexto, um boolean sendo comparado com number, string ou object é convertido com Number(boolean), que retorna 1 ou 0
+console.log("Nesse contexto, um boolean sendo comparado com number, string ou object é convertido com Number(boolean), que retorna 1 ou 0")
 console.log("Number(true) =", Number(true))
 console.log("Number(false) =", Number(false))
-boolean = true
 
-//Uma string sendo comparada com um number é avaliada com Number(string), que pode retornar um número ou um NaN 
-console.log("Uma string sendo comparada com um number é avaliada com Number(string), que pode retornar um número ou um NaN")
+//Nesse contexto, uma string sendo comparada com number, boolean ou object é convertida com Number(string), que pode retornar um número ou um NaN 
+console.log('Nesse contexto, uma string sendo comparada com number, boolean ou object é convertida com Number(string), que pode retornar um número ou um NaN')
 console.log('Number("a") =', Number("a"))
 console.log('Number("0") =', Number("0"))
 
-//Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true idem.
-console.log('Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true idem.')
+//Nesse contexto, um objeto sendo comparado com number, boolean ou string é convertido para o tipo primitivo mais apropriado: number ou string
+console.log('Nesse contexto, um objeto sendo comparado com number, boolean ou string é convertido para o tipo primitivo mais apropriado: number ou string')
+console.log('object =', object)
+console.log('Number(object) =', Number(object))
+console.log('object.toString() =', object.toString())
+console.log('object5 =', object5)
+console.log('Number(object5) =', Number(object5))
+console.log('object5.toString() =', object5.toString())
+console.log('object6 =', object6)
+console.log('Number(object6) =', Number(object6))
+console.log('object6.toString() =', object6.toString())
+console.log('object7 =', object7)
+console.log('Number(object7) =', Number(object7))
+console.log('object7.toString() =', object7.toString())
+
+console.log("Comparar com NaN dá sempre false. NaN == NaN =", NaN == NaN) //false
+console.log("O único caso em que x != x dá true é quando x é NaN:", number3 != number3) //true
+console.log("undefined e null dão true se e somente se comparados entre si")
+console.log("undefined == undefined", undefined_ == undefined_)
+console.log("undefined == null", undefined_ == null_)
+console.log("null == null", null_ == null_)
+
+//Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true sozinho idem.
+console.log('Daí podem acontecer comparações bizarras como ("a" == true) retornando false, sendo que "a" sozinho avaliaria como true, e true sozinho idem.')
 console.log('("a" == true) =', ("a" == true))
 console.log('("a" == 1) =', ("a" == 1))
 console.log('(NaN == 1) =', (NaN == 1))
@@ -145,6 +176,7 @@ console.log('(NaN == 0) =', (NaN == 0))
 console.log("\nOperador === compara os tipos dos operandos antes de convertê-los")
 console.log('("1" == true)', ("1" == true))
 console.log('("1" === true)', ("1" === true))
+console.log("O único caso em que x !== x dá true é quando x é NaN:", number3 !== number3) //true
 
 /* Em comparação de objetos o que importa é a referência.
  * Um objeto nada mais é do que um conjunto de pares (chave,valor)
@@ -162,7 +194,7 @@ function Movie(name, rating) {
     console.log(this.name)
   }
 }
-              
+
 let movie = new Movie("Deadpool", "R")
 console.log(movie)
 movie.printName()

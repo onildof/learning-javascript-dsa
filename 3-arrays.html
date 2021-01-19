@@ -19,7 +19,6 @@ let d = Array.of('a','a','a') //Array.of usa os argumentos para fazer um array, 
 let e = Array.of(...d) //Criando um array a partir de outro com Array.of(operador spread em outro array)
 let f = Array.from(d) //Criando um array a partir de outro com Array.from(outro)
 
-
 /*
  * Sem usar a classe Array:
  * */
@@ -186,7 +185,7 @@ let numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 numbers.reverse()
 
 //sort() assume que todos os elementos são strings e ordena ASCIImente
-numbers.sort()
+numbers.sort() //a porra do sort modifica o array original
 
 //Se não quiser que sort interprete os elementos como strings e ordene ASCIImente, entregue-lhe uma função de comparação
 numbers.sort((a,b) => a - b)
